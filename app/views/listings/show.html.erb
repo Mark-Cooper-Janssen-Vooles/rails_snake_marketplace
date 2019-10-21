@@ -1,0 +1,16 @@
+<h1>Show page</h1>
+
+<%= image_tag @listing.picture, width: "100px" if @listing.picture.attached? %><br>
+Title: <%= @listing.title %><br>
+Description: <%= @listing.description %><br>
+Breed: <%= @listing.breed.name %><br>
+Price: <%= @listing.price %><br>
+Depsit: <%= @listing.deposit %><br>
+City: <%= @listing.city %><br>
+State: <%= @listing.state %><br>
+D.O.B: <%= @listing.date_of_birth %><br>
+Diet: <%= @listing.diet %><br>
+Sex: <%= @listing.sex %>
+<br>
+
+<%= link_to("back", listings_path)%>

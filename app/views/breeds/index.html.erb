@@ -1,0 +1,25 @@
+<h1>BREEDS INDEX</h1>
+
+<%= link_to("create breed", breeds_new_path) %>
+
+<br><br>
+
+<%= form_with model: @listings do |s| %>
+  <%= s.text_field :name %>
+  <%= s.submit %>
+<% end %>
+
+<% @breeds.each do |b| %>
+  <%= b.name %>
+  <%= link_to("edit breed", edit_breed_path(b.id))%>
+  <%= link_to("show", breed_path(b.id))%>
+
+  <% if b.listings.length > 0 %>
+    <span>You can't destroy a breed with listings</span>
+    <%= link_to_if(false, "aword", breeds_path) %>
+
+  <% else %>
+    <%= link_to("delete breed", delete_breed_path(b.id), method: :delete, data: { confirm: 'Are you sure?' } ) %>
+  <% end %>
+    <br>
+<% end %>
