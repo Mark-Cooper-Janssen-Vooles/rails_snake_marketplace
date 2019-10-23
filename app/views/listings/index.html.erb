@@ -11,8 +11,10 @@
   <%= l.date_of_birth %>
   <%= l.diet %>
 
-<%= link_to("show", listing_path(l.id))%>
-<%= link_to("Edit", edit_listing_path(l.id))%>
-<%= link_to("Destroy", listing_path(l.id), method: :delete, data: { confirm: 'Are you really sure?'}) %>
+  <%= link_to("Show", listing_path(l.id))%>
+  <% if current_user.id == l.user_id %>
+    <%= link_to("Edit", edit_listing_path(l.id)) %>
+    <%= link_to("Destroy", listing_path(l.id), method: :delete, data: { confirm: 'Are you really sure?'}) %>
+  <% end%>
   <br>
 <% end %>

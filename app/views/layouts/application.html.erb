@@ -10,6 +10,17 @@
   </head>
 
   <body>
+   <% if user_signed_in? %>
+    <%= link_to("logout", destroy_user_session_path, method: :delete) %>
+    <%= current_user.email %>
+    <% else %>
+      <%= link_to("Login", new_session_path) %>
+    <% end %> 
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
     <%= yield %>
+
   </body>
 </html>

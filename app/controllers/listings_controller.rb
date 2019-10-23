@@ -1,8 +1,14 @@
 class ListingsController < ApplicationController
-  before_action :set_listing, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  ##
+  before_action :set_listing, only: [:show ]
+  ##
+  before_action :set_user_listing, only: [ :edit, :update, :destroy]
 
   def index
       @listings = Listing.all.sort
+      #displays only current user listings
+      # @listings = current_user.listings
   end
 
   def show
@@ -16,7 +22,9 @@ class ListingsController < ApplicationController
   def create
     # @listing = Listing.create(listing_params)
     
-    @listing = Listing.new(listing_params)
+    # @listing = Listing.new(listing_params)
+    @listing = current_user.listings.new(listing_params)
+
     if @listing.save
       #all good
       redirect_to @listing
@@ -30,13 +38,11 @@ class ListingsController < ApplicationController
   end
 
   def update
-
     if @listing.update(listing_params)
       redirect_to @listing
     else
       render :edit
     end
-    
   end
 
   def destroy
@@ -49,6 +55,16 @@ class ListingsController < ApplicationController
   def set_listing
     id = params[:id]
     @listing = Listing.find(id)
+  end
+
+  ###
+  def set_user_listing
+    id = params[:id]
+    @listing = current_user.listings.find_by_id(id)
+
+    if @listing == nil 
+      redirect_to listings_path
+    end 
   end
 
   def listing_params
